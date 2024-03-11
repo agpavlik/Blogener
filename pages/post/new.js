@@ -1,11 +1,40 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { AppLayout } from "../../components/AppLayout";
+import { useState } from "react";
+import Markdown from "react-markdown";
 
 export default function NewPost(props) {
-  console.log(props);
+  const [postContent, setPostContent] = useState("");
+
+  // Query API endpoint for generatePost
+  const handleClick = async () => {
+    // e.preventDefault();
+    //setGenerating(true);
+    // try {
+    const response = await fetch(`/api/generatePost`, {
+      method: "POST",
+      // headers: {
+      //   "content-type": "application/json",
+      // },
+      // body: JSON.stringify({ topic, keywords }),
+    });
+    const json = await response.json();
+    console.log("RESULT: ", json);
+    setPostContent(json.postContent);
+    //   if (json?.postId) {
+    //     router.push(`/post/${json.postId}`);
+    //   }
+    // } catch (e) {
+    //   //setGenerating(false);
+  };
+
   return (
     <div>
       <h1>NewPost</h1>
+      <button className="btn" onClick={handleClick}>
+        Generate
+      </button>
+      <Markdown>{postContent}</Markdown>
     </div>
   );
 }

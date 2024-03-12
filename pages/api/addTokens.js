@@ -14,6 +14,9 @@ export default async function handler(req, res) {
   const db = client.db("Blogener");
   const userProfile = await db
     .collection("users")
+    //Identify document to update. cCeck if any documents that has auth0id equal to user.sub.
+    // Then update that document. If that document doesn't exist, then MongoDB will create that document.
+
     .updateOne(
       { auth0id: user.sub },
       { $inc: { availableTokens: 25 }, $setOnInsert: { auth0id: user.sub } },

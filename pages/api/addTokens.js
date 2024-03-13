@@ -9,19 +9,20 @@ export default async function handler(req, res) {
   // Grab the currently logged in users ID from Auth0.
   const { user } = await getSession(req, res);
 
-  // Connect to MongoDB
+  // Connect to MongoDB and database
   const client = await clientPromise;
   const db = client.db("Blogener");
+
+  //Identify document to update. cCeck if any documents that has auth0id equal to user.sub.
+  // Then update that document. If that document doesn't exist, then MongoDB will create that document.
+
   const userProfile = await db
     .collection("users")
-    //Identify document to update. cCeck if any documents that has auth0id equal to user.sub.
-    // Then update that document. If that document doesn't exist, then MongoDB will create that document.
-
     .updateOne(
       { auth0id: user.sub },
       { $inc: { availableTokens: 25 }, $setOnInsert: { auth0id: user.sub } },
       { upsert: true }
     );
 
-  res.status(200).json({ name: "J" });
+  res.status(200).json({ name: "John Doe" });
 }

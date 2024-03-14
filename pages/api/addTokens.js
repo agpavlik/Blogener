@@ -23,8 +23,6 @@ export default async function handler(req, res) {
       { $inc: { availableTokens: 25 }, $setOnInsert: { auth0id: user.sub } },
       { upsert: true }
     );
-  console.log("user.sub:", user.sub);
 
-  console.log("userProfile:", userProfile);
   res.status(200).json({ name: "John Doe" });
 }

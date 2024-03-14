@@ -2,7 +2,7 @@ import { getSession, withApiAuthRequired } from "@auth0/nextjs-auth0";
 import { Configuration, OpenAIApi } from "openai";
 import clientPromise from "../../lib/mongodb";
 
-// With the withApiAuthRequired higher-order function, you can require authentication to access the API route.
+// With the withApiAuthRequired higher-order function, we can require authentication to access the API route.
 // If the user is not authenticated, they are redirected to the login page.
 export default withApiAuthRequired(async function handler(req, res) {
   // Grab the currently logged in users ID from Auth0.

@@ -1,7 +1,7 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { AppLayout } from "../../components/AppLayout";
 import { useState } from "react";
-import Markdown from "react-markdown"; //
+import Markdown from "react-markdown";
 
 export default function NewPost(props) {
   const [postContent, setPostContent] = useState("");

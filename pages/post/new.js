@@ -2,9 +2,10 @@ import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { AppLayout } from "../../components/AppLayout";
 import { useState } from "react";
 import Markdown from "react-markdown";
+import { useRouter } from "next/router";
 
 export default function NewPost(props) {
-  const [postContent, setPostContent] = useState("");
+  const router = useRouter();
   const [topic, setTopic] = useState("");
   const [keywords, setKeywords] = useState("");
 
@@ -15,15 +16,15 @@ export default function NewPost(props) {
     // try {
     const response = await fetch(`/api/generatePost`, {
       method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ topic, keywords }),
+      //   headers: { "content-type": "application/json" },
+      //   body: JSON.stringify({ topic, keywords }),
     });
     const json = await response.json();
     console.log("RESULT: ", json);
-    setPostContent(json.post.postContent);
-    //   if (json?.postId) {
-    //     router.push(`/post/${json.postId}`);
-    //   }
+    // Check if postId exist and navigate to it
+    if (json?.postId) {
+      router.push(`/post/${json.postId}`);
+    }
     // } catch (e) {
     //   //setGenerating(false);
   };
@@ -65,8 +66,6 @@ export default function NewPost(props) {
           Generate
         </button>
       </form>
-
-      <Markdown>{postContent}</Markdown>
     </div>
   );
 }

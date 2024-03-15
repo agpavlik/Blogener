@@ -41,10 +41,10 @@ export const AppLayout = ({ children, availableTokens, posts, postId }) => {
             </Link>
           ))}
         </div>
-        <div className="bg-teal-800 flex items-center gap-2 border-t border-t-black/50 xs:h-10 md:h-20 px-2">
+        <div className="bg-teal-800 flex items-center gap-2 border-t border-t-black/50 xs:h-15 md:h-20 px-2">
           {!!user ? (
             <>
-              <div className="md:min-w-[50px] xs:max-w-[35px] xs:mx-5 md:px-2">
+              <div className="xs:max-w-[35px] md:max-w-[60px] xs:mx-5 md:px-2">
                 <Image
                   src={user.picture}
                   alt={user.name}
@@ -53,12 +53,9 @@ export const AppLayout = ({ children, availableTokens, posts, postId }) => {
                   className="rounded-full"
                 />
               </div>
-              <div className="md:flex-1 xs:flex">
+              <div className="flex-1">
                 <div className="font-bold">{user.email}</div>
-                <Link
-                  className="text-sm xs:mx-20 md-px-2"
-                  href="/api/auth/logout"
-                >
+                <Link className="text-sm" href="/api/auth/logout">
                   Logout
                 </Link>
               </div>

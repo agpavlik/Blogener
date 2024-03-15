@@ -32,6 +32,18 @@ export default withApiAuthRequired(async function handler(req, res) {
 
   const { topic, keywords } = req.body;
 
+  console.log("req.body:", req.body);
+
+  if (!topic || !keywords) {
+    res.status(422);
+    return;
+  }
+
+  if (topic.length > 80 || keywords.length > 80) {
+    res.status(422);
+    return;
+  }
+
   const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo-1106",
     messages: [
@@ -71,16 +83,20 @@ export default withApiAuthRequired(async function handler(req, res) {
         ${postContent}
         ---
         The output json must be in the following format:
-        {title: "example title",
-        metaDescription: "example meta description" }
+        {
+          "title": "example title",
+          "metaDescription": "example meta description" 
+        }
         `,
       },
     ],
     response_format: { type: "json_object" },
   });
 
-  const { title, metaDescription } =
-    seoResponse.data.choices[0]?.message?.content || {};
+  console.log("seoResponse", seoResponse.data.choices[0]?.message?.content);
+
+  const seo = seoResponse.data.choices[0]?.message?.content;
+  const { title, metaDescription } = JSON.parse(seo) || {};
 
   // Once blog post was generated, then decrement the user's available tokens by one.
   await db.collection("users").updateOne(
@@ -91,6 +107,10 @@ export default withApiAuthRequired(async function handler(req, res) {
       },
     }
   );
+
+  console.log("POST CONTENT: ", postContent);
+  console.log("TITLE: ", title);
+  console.log("META DESCRIPTION: ", metaDescription);
 
   // Insert generated post into the posts collection.
   // Add all important info: topic, keywords, date, user etc.

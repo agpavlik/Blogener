@@ -3,6 +3,7 @@ import { AppLayout } from "../../components/AppLayout";
 import { useState } from "react";
 import Markdown from "react-markdown";
 import { useRouter } from "next/router";
+import { getAppProps } from "../../utils/getAppProps";
 
 export default function NewPost(props) {
   const router = useRouter();
@@ -16,8 +17,8 @@ export default function NewPost(props) {
     // try {
     const response = await fetch(`/api/generatePost`, {
       method: "POST",
-      //   headers: { "content-type": "application/json" },
-      //   body: JSON.stringify({ topic, keywords }),
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ topic, keywords }),
     });
     const json = await response.json();
     console.log("RESULT: ", json);
@@ -77,8 +78,11 @@ NewPost.getLayout = function getLayout(page, pageProps) {
   return <AppLayout {...pageProps}>{page}</AppLayout>;
 };
 
-export const getServerSideProps = withPageAuthRequired(() => {
-  return {
-    props: {},
-  };
+export const getServerSideProps = withPageAuthRequired({
+  async getServerSideProps(ctx) {
+    const props = await getAppProps(ctx);
+    return {
+      props,
+    };
+  },
 });

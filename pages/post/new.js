@@ -31,10 +31,10 @@ export default function NewPost(props) {
   };
 
   return (
-    <div className="w-full h-full flex flex-col overflow-auto">
+    <div className="w-full h-full flex flex-col overflow-auto p-3">
       <form
         onSubmit={handleSubmit}
-        className="m-auto w-full max-w-screen-sm bg-zinc-100 p-4 rounded-md shadow-xl border border-zinc-300 shadow-zinc-300"
+        className="m-auto w-full max-w-screen-mdl bg-zinc-100 p-4 rounded-md shadow-xl border border-zinc-300 shadow-zinc-300"
       >
         <div>
           <label>

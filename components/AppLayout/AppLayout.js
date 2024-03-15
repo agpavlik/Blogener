@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoins } from "@fortawesome/free-solid-svg-icons";
+import { faLayerGroup } from "@fortawesome/free-solid-svg-icons";
 import { Logo } from "../Logo/Logo";
 
 export const AppLayout = ({ children, availableTokens, posts, postId }) => {
@@ -11,7 +11,7 @@ export const AppLayout = ({ children, availableTokens, posts, postId }) => {
   // console.log("APP PROPS:", rest);
 
   return (
-    <div className="grid grid-cols-[300px_1fr] h-screen max-h-screen">
+    <div className="grid md:grid-cols-[300px_1fr] h-screen max-h-screen">
       <div className="flex flex-col text-white overflow-hidden">
         <div className="bg-zinc-800 px-2">
           <Logo />
@@ -19,8 +19,8 @@ export const AppLayout = ({ children, availableTokens, posts, postId }) => {
             New post
           </Link>
           <Link href="/token-topup" className="block mt-2 text-center">
-            <FontAwesomeIcon icon={faCoins} className="text-yellow-500" />
-            <span className="pl-2 hover:text-green-500">
+            <FontAwesomeIcon icon={faLayerGroup} className="text-blue-400" />
+            <span className="pl-2 hover:text-blue-300">
               {availableTokens} tokens available
             </span>
           </Link>
@@ -41,10 +41,10 @@ export const AppLayout = ({ children, availableTokens, posts, postId }) => {
             </Link>
           ))}
         </div>
-        <div className="bg-teal-800 flex items-center gap-2 border-t border-t-black/50 h-20 px-2">
+        <div className="bg-teal-800 flex items-center gap-2 border-t border-t-black/50 xs:h-10 md:h-20 px-2">
           {!!user ? (
             <>
-              <div className="min-w-[50px]">
+              <div className="md:min-w-[50px] xs:max-w-[35px] xs:mx-5 md:px-2">
                 <Image
                   src={user.picture}
                   alt={user.name}
@@ -53,9 +53,12 @@ export const AppLayout = ({ children, availableTokens, posts, postId }) => {
                   className="rounded-full"
                 />
               </div>
-              <div className="flex-1">
+              <div className="md:flex-1 xs:flex">
                 <div className="font-bold">{user.email}</div>
-                <Link className="text-sm" href="/api/auth/logout">
+                <Link
+                  className="text-sm xs:mx-20 md-px-2"
+                  href="/api/auth/logout"
+                >
                   Logout
                 </Link>
               </div>

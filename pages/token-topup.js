@@ -7,9 +7,10 @@ export default function TokenTopup() {
     const result = await fetch(`/api/addTokens`, {
       method: "POST",
     });
-    // const json = await result.json();
-    // console.log("RESULT: ", json);
-    // window.location.href = json.session.url;
+    const json = await result.json();
+    console.log("RESULT: ", json);
+    // Navigate to newly genereted stripe checkout URL.
+    window.location.href = json.session.url;
   };
 
   return (

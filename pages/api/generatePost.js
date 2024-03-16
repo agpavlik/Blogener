@@ -32,7 +32,7 @@ export default withApiAuthRequired(async function handler(req, res) {
 
   const { topic, keywords } = req.body;
 
-  console.log("req.body:", req.body);
+  // console.log("req.body:", req.body);
 
   if (!topic || !keywords) {
     res.status(422);
@@ -93,7 +93,7 @@ export default withApiAuthRequired(async function handler(req, res) {
     response_format: { type: "json_object" },
   });
 
-  console.log("seoResponse", seoResponse.data.choices[0]?.message?.content);
+  // console.log("seoResponse", seoResponse.data.choices[0]?.message?.content);
 
   const seo = seoResponse.data.choices[0]?.message?.content;
   const { title, metaDescription } = JSON.parse(seo) || {};
@@ -108,9 +108,9 @@ export default withApiAuthRequired(async function handler(req, res) {
     }
   );
 
-  console.log("POST CONTENT: ", postContent);
-  console.log("TITLE: ", title);
-  console.log("META DESCRIPTION: ", metaDescription);
+  // console.log("POST CONTENT: ", postContent);
+  // console.log("TITLE: ", title);
+  // console.log("META DESCRIPTION: ", metaDescription);
 
   // Insert generated post into the posts collection.
   // Add all important info: topic, keywords, date, user etc.
@@ -124,7 +124,7 @@ export default withApiAuthRequired(async function handler(req, res) {
     created: new Date(),
   });
 
-  console.log("POST:", post);
+  // console.log("POST:", post);
 
   res.status(200).json({
     postId: post.insertedId,

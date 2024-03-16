@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getAppProps } from "../../utils/getAppProps";
 
 export default function Post(props) {
-  console.log("PROPS:", props);
+  // console.log("PROPS:", props);
   return (
     <div className="overflow-auto h-full">
       <div className="xs:w-4/5 sm:w-4/5 md:w-2/3 lg:w-2/3 mx-auto">

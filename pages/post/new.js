@@ -1,7 +1,6 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { AppLayout } from "../../components/AppLayout";
 import { useState } from "react";
-import Markdown from "react-markdown";
 import { useRouter } from "next/router";
 import { getAppProps } from "../../utils/getAppProps";
 
@@ -21,7 +20,7 @@ export default function NewPost(props) {
       body: JSON.stringify({ topic, keywords }),
     });
     const json = await response.json();
-    console.log("RESULT: ", json);
+    // console.log("RESULT: ", json);
     // Check if postId exist and navigate to it
     if (json?.postId) {
       router.push(`/post/${json.postId}`);

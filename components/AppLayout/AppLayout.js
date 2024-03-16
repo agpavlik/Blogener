@@ -33,7 +33,7 @@ export const AppLayout = ({ children, availableTokens, posts, postId }) => {
               className={`py-1 border border-white/0 block text-ellipsis overflow-hidden whitespace-nowrap my-1 px-2 bg-white/10 hover:bg-white/20 cursor-pointer rounded-sm
               ${
                 postId === post._id
-                  ? "bg-teal-800 border-white hover:bg-teal-800"
+                  ? "bg-teal-900 border-white hover:bg-teal-700"
                   : ""
               }`}
             >

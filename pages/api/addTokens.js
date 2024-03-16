@@ -33,30 +33,15 @@ export default async function handler(req, res) {
     line_items: lineItems,
     mode: "payment",
     success_url: `${protocol}${host}/success`,
-    // payment_intent_data: {
-    //   metadata: {
-    //     sub: user.sub,
-    // //   },
-    // },
-    // metadata: {
-    //   sub: user.sub,
-    // },
+    payment_intent_data: {
+      metadata: {
+        sub: user.sub,
+      },
+    },
+    metadata: {
+      sub: user.sub,
+    },
   });
-
-  // Connect to MongoDB and database
-  const client = await clientPromise;
-  const db = client.db("Blogener");
-
-  //Identify document to update. Check if any documents that has auth0id equal to user.sub.
-  // Then update that document. If that document doesn't exist, then MongoDB will create that document.
-
-  const userProfile = await db
-    .collection("users")
-    .updateOne(
-      { auth0id: user.sub },
-      { $inc: { availableTokens: 10 }, $setOnInsert: { auth0id: user.sub } },
-      { upsert: true }
-    );
 
   res.status(200).json({ session: checkoutSession });
 }

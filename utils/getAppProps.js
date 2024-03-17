@@ -25,8 +25,9 @@ export const getAppProps = async (ctx) => {
     .find({
       userId: user._id,
     })
+    // imit posts to render
+    .limit(7)
     // Sort posts from newest to oldest
-    .limit(10)
     .sort({
       created: -1,
     })

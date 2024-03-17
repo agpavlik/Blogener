@@ -4,11 +4,32 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLayerGroup } from "@fortawesome/free-solid-svg-icons";
 import { Logo } from "../Logo/Logo";
+import PostsContext from "../../context/postsContext";
+import { useContext, useEffect } from "react";
 
-export const AppLayout = ({ children, availableTokens, posts, postId }) => {
+export const AppLayout = ({
+  children,
+  availableTokens,
+  posts: postsFromSSR,
+  postId,
+  postCreated,
+}) => {
   const { user } = useUser();
 
   // console.log("APP PROPS:", rest);
+
+  const { setPostsFromSSR, posts, getPosts, noMorePosts } =
+    useContext(PostsContext);
+
+  useEffect(() => {
+    setPostsFromSSR(postsFromSSR);
+    if (postId) {
+      const exists = postsFromSSR.find((post) => post._id === postId);
+      if (!exists) {
+        getPosts({ getNewerPosts: true, lastPostDate: postCreated });
+      }
+    }
+  }, [postsFromSSR, setPostsFromSSR, postId, postCreated, getPosts]);
 
   return (
     <div className="grid md:grid-cols-[300px_1fr] h-screen max-h-screen">
@@ -20,7 +41,7 @@ export const AppLayout = ({ children, availableTokens, posts, postId }) => {
           </Link>
           <Link href="/token-topup" className="block mt-2 text-center">
             <FontAwesomeIcon icon={faLayerGroup} className="text-blue-400" />
-            <span className="pl-2 hover:text-blue-300">
+            <span className="pl-2 text-blue-300 hover:text-white">
               {availableTokens} tokens available
             </span>
           </Link>
@@ -40,6 +61,16 @@ export const AppLayout = ({ children, availableTokens, posts, postId }) => {
               {post.topic}
             </Link>
           ))}
+          {!noMorePosts && (
+            <div
+              onClick={() => {
+                getPosts({ lastPostDate: posts[posts.length - 1].created });
+              }}
+              className="hover:text-white text-zinc-400 text-center cursor-pointer mt-4"
+            >
+              Load more posts
+            </div>
+          )}
         </div>
         <div className="bg-teal-800 flex items-center gap-2 border-t border-t-black/50 xs:h-15 md:h-20 px-2">
           {!!user ? (

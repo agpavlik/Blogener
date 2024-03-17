@@ -34,12 +34,14 @@ export default withApiAuthRequired(async function handler(req, res) {
 
   // console.log("req.body:", req.body);
 
+  // Validation
   if (!topic || !keywords) {
     res.status(422);
     return;
   }
 
-  if (topic.length > 80 || keywords.length > 80) {
+  // Validation
+  if (topic.length > 80 || topic.length < 3 || keywords.length > 80) {
     res.status(422);
     return;
   }

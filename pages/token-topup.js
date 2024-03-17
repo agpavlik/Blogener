@@ -14,11 +14,13 @@ export default function TokenTopup() {
   };
 
   return (
-    <div>
-      <h1>Token</h1>
-      <button className="btn" onClick={handleClick}>
-        Add tokens
-      </button>
+    <div className="w-full h-full flex flex-col overflow-auto p-3">
+      <div className="m-auto w-full max-w-screen-mdl bg-zinc-100 p-4 rounded-md shadow-xl border border-zinc-300 shadow-zinc-300">
+        <p className="pb-2">Please, buy some tokens to create new posts</p>
+        <button className="btn" onClick={handleClick}>
+          Add tokens
+        </button>
+      </div>
     </div>
   );
 }

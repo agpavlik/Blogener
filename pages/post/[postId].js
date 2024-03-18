@@ -6,9 +6,34 @@ import Markdown from "react-markdown";
 import { faHashtag } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getAppProps } from "../../utils/getAppProps";
+import { useRouter } from "next/router";
+import { useContext, useState } from "react";
+import PostsContext from "../../context/postsContext";
 
 export default function Post(props) {
   // console.log("PROPS:", props);
+
+  const router = useRouter();
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const { deletePost } = useContext(PostsContext);
+
+  const handleDeleteConfirm = async () => {
+    try {
+      const response = await fetch(`/api/deletePost`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ postId: props.id }),
+      });
+      const json = await response.json();
+      if (json.success) {
+        deletePost(props.id);
+        router.replace(`/post/new`);
+      }
+    } catch (e) {}
+  };
+
   return (
     <div className="overflow-auto h-full">
       <div className="xs:w-4/5 sm:w-4/5 md:w-2/3 lg:w-2/3 mx-auto">
@@ -36,6 +61,38 @@ export default function Post(props) {
           Blog post
         </div>
         <Markdown>{props.postContent || ""}</Markdown>
+        <div className="my-4">
+          {!showDeleteConfirm && (
+            <button
+              className="btn bg-red-600 hover:bg-red-700"
+              onClick={() => setShowDeleteConfirm(true)}
+            >
+              Delete post
+            </button>
+          )}
+          {!!showDeleteConfirm && (
+            <div>
+              <p className="p-2 bg-red-300 text-center">
+                Are you sure you want to delete this post? This action is
+                irreversible!
+              </p>
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => setShowDeleteConfirm(false)}
+                  className="btn bg-zinc-600 hover:bg-zinc-700"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleDeleteConfirm}
+                  className="btn bg-red-600 hover:bg-red-700"
+                >
+                  Confirm delete
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

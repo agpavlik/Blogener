@@ -35,6 +35,7 @@ export const PostsProvider = ({ children }) => {
   const [posts, dispatch] = useReducer(postsReducer, []);
   const [noMorePosts, setNoMorePosts] = useState(false);
 
+  // Function handle deleting a particular post from array of posts.
   const deletePost = useCallback((postId) => {
     dispatch({
       type: "deletePost",

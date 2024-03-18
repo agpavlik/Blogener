@@ -17,6 +17,7 @@ export default function Post(props) {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const { deletePost } = useContext(PostsContext);
 
+  // Handle post delete
   const handleDeleteConfirm = async () => {
     try {
       const response = await fetch(`/api/deletePost`, {

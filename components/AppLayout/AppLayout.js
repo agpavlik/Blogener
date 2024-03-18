@@ -23,6 +23,7 @@ export const AppLayout = ({
 
   useEffect(() => {
     setPostsFromSSR(postsFromSSR);
+    // Check if a postId is set and than check if the postId exists in initial loading of posts from SSR.
     if (postId) {
       const exists = postsFromSSR.find((post) => post._id === postId);
       if (!exists) {

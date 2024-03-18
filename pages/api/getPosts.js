@@ -12,12 +12,13 @@ export default withApiAuthRequired(async function handler(req, res) {
       auth0id: sub,
     });
 
+    // Grab all the posts
     const { lastPostDate, getNewerPosts } = req.body;
-
     const posts = await db
       .collection("posts")
       .find({
         userId: userProfile._id,
+        // Find where the created date is less than the last post date.
         created: { [getNewerPosts ? "$gt" : "$lt"]: new Date(lastPostDate) },
       })
       .limit(getNewerPosts ? 0 : 7)

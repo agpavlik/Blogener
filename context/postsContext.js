@@ -50,6 +50,7 @@ export const PostsProvider = ({ children }) => {
     });
   }, []);
 
+  // Save response from GET posts API endpoint
   const getPosts = useCallback(
     async ({ lastPostDate, getNewerPosts = false }) => {
       const result = await fetch(`/api/getPosts`, {

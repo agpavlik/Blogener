@@ -36,7 +36,9 @@ export const AppLayout = ({
     <div className="grid md:grid-cols-[300px_1fr] h-screen max-h-screen">
       <div className="flex flex-col text-white overflow-hidden">
         <div className="bg-zinc-800 px-2">
-          <Logo />
+          <Link href="/">
+            <Logo />
+          </Link>
           <Link href="/post/new" className="btn">
             New post
           </Link>

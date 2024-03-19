@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { getAppProps } from "../../utils/getAppProps";
 import { faPenFancy } from "@fortawesome/free-solid-svg-icons";
+import { faRobot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function NewPost(props) {
@@ -77,7 +78,8 @@ export default function NewPost(props) {
               className="btn"
               disabled={!topic.trim() || !keywords.trim()}
             >
-              Generate
+              <FontAwesomeIcon icon={faRobot} />
+              &nbsp;&nbsp; Generate with AI
             </button>
           </form>
         </div>

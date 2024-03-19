@@ -1,6 +1,9 @@
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { AppLayout } from "../components/AppLayout";
 import { getAppProps } from "../utils/getAppProps";
+import { faLayerGroup } from "@fortawesome/free-solid-svg-icons";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function TokenTopup() {
   const handleClick = async () => {
@@ -18,7 +21,8 @@ export default function TokenTopup() {
       <div className="m-auto w-full max-w-screen-mdl bg-zinc-100 p-4 rounded-md shadow-xl border border-zinc-300 shadow-zinc-300">
         <p className="pb-2">Please, buy some tokens to create new posts</p>
         <button className="btn" onClick={handleClick}>
-          Add tokens
+          <FontAwesomeIcon icon={faLayerGroup} />
+          &nbsp;&nbsp; Add tokens
         </button>
       </div>
     </div>

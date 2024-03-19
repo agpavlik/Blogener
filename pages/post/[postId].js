@@ -4,6 +4,9 @@ import clientPromise from "../../lib/mongodb";
 import { ObjectId } from "mongodb";
 import Markdown from "react-markdown";
 import { faHashtag } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faRotateLeft } from "@fortawesome/free-solid-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getAppProps } from "../../utils/getAppProps";
 import { useRouter } from "next/router";
@@ -68,7 +71,8 @@ export default function Post(props) {
               className="btn bg-red-600 hover:bg-red-700"
               onClick={() => setShowDeleteConfirm(true)}
             >
-              Delete post
+              <FontAwesomeIcon icon={faTrashCan} />
+              &nbsp;&nbsp; Delete post
             </button>
           )}
           {!!showDeleteConfirm && (
@@ -82,13 +86,15 @@ export default function Post(props) {
                   onClick={() => setShowDeleteConfirm(false)}
                   className="btn bg-zinc-600 hover:bg-zinc-700"
                 >
-                  Cancel
+                  <FontAwesomeIcon icon={faRotateLeft} />
+                  &nbsp;&nbsp; Cancel
                 </button>
                 <button
                   onClick={handleDeleteConfirm}
                   className="btn bg-red-600 hover:bg-red-700"
                 >
-                  Confirm delete
+                  <FontAwesomeIcon icon={faTrashCan} />
+                  &nbsp;&nbsp; Confirm delete
                 </button>
               </div>
             </div>
@@ -129,7 +135,7 @@ export const getServerSideProps = withPageAuthRequired({
       userId: user._id,
     });
 
-    // If post does not exist - redirect to the nea page
+    // If post does not exist - redirect to the new page
     if (!post) {
       return {
         redirect: {

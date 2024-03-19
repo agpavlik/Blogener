@@ -2,7 +2,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAnglesDown } from "@fortawesome/free-solid-svg-icons";
 import { faLayerGroup } from "@fortawesome/free-solid-svg-icons";
+import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+import { faFileCirclePlus } from "@fortawesome/free-solid-svg-icons";
+
 import { Logo } from "../Logo/Logo";
 import PostsContext from "../../context/postsContext";
 import { useContext, useEffect } from "react";
@@ -40,7 +44,8 @@ export const AppLayout = ({
             <Logo />
           </Link>
           <Link href="/post/new" className="btn">
-            New post
+            <FontAwesomeIcon icon={faFileCirclePlus} />
+            &nbsp;&nbsp; New post
           </Link>
           <Link href="/token-topup" className="block mt-2 text-center">
             <FontAwesomeIcon icon={faLayerGroup} className="text-blue-400" />
@@ -71,7 +76,8 @@ export const AppLayout = ({
               }}
               className="hover:text-white text-zinc-400 text-center cursor-pointer mt-4"
             >
-              Load more posts
+              <FontAwesomeIcon icon={faAnglesDown} />
+              &nbsp;&nbsp; Load more posts
             </div>
           )}
         </div>
@@ -90,7 +96,8 @@ export const AppLayout = ({
               <div className="flex-1">
                 <div className="font-bold">{user.email}</div>
                 <Link className="text-sm" href="/api/auth/logout">
-                  Logout
+                  Logout&nbsp;&nbsp;
+                  <FontAwesomeIcon icon={faRightFromBracket} />
                 </Link>
               </div>
             </>

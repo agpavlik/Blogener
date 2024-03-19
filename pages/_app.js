@@ -1,12 +1,12 @@
 import "../styles/globals.css";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
-import { DM_Sans, DM_Serif_Display } from "@next/font/google";
+import { Roboto, DM_Serif_Display } from "@next/font/google";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { PostsProvider } from "../context/postsContext";
 config.autoAddCss = false;
 
-const dmSans = DM_Sans({
+const roboto = Roboto({
   weight: ["400", "500", "700"],
   subsets: ["latin"],
   variable: "--font-dm-sans",
@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }) {
     <UserProvider>
       <PostsProvider>
         <main
-          className={`${dmSans.variable} ${dmSerifDisplay.variable} font-body`}
+          className={`${roboto.variable} ${dmSerifDisplay.variable} font-body`}
         >
           {getLayout(<Component {...pageProps} />, pageProps)}
         </main>

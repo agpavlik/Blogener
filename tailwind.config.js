@@ -20,7 +20,7 @@ module.exports = {
         xl: "1280px",
       },
       fontFamily: {
-        body: "var(--font-dm-sans)",
+        body: "var(--font-roboto)",
         heading: "var(--font-dm-serif)",
       },
     },
